@@ -51,7 +51,7 @@ This project implements a Full Stack application for the Ministério de Transpor
     The frontend dashboard will be available at `http://localhost:3000`.
     The backend API documentation (Swagger UI) will be available at `http://localhost:8000/docs`.
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 .
