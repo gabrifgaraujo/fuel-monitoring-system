@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from typing import List, Optional
 from datetime import datetime
 
@@ -92,14 +93,40 @@ def read_coletas(
         
     return response_list
 
-# --- KPI Routes (Placeholder for now, will be detailed in a later commit) ---
+# --- KPI Routes ---
 
 @app.get("/kpi/volume-veiculo/")
-def kpi_volume_veiculo(db: Session = Depends(get_db)):
-    # Placeholder for KPI logic
-    return {"message": "KPI Volume by Vehicle Type endpoint is a placeholder."}
+def kpi_volume_veiculo(
+    db: Session = Depends(get_db),
+    cidade: Optional[str] = None,
+    tipo_combustivel: Optional[str] = None,
+):
+    query = db.query(
+        models.Coleta.tipo_veiculo.label("name"),
+        func.sum(models.Coleta.volume_litros).label("value")
+    ).group_by(models.Coleta.tipo_veiculo)
+    
+    if cidade:
+        query = query.filter(models.Coleta.cidade == cidade)
+    if tipo_combustivel:
+        query = query.filter(models.Coleta.tipo_combustivel == tipo_combustivel)
+        
+    return query.all()
 
 @app.get("/kpi/evolucao-preco/")
-def kpi_evolucao_preco(db: Session = Depends(get_db)):
-    # Placeholder for KPI logic
-    return {"message": "KPI Price Evolution endpoint is a placeholder."}
+def kpi_evolucao_preco(
+    db: Session = Depends(get_db),
+    cidade: Optional[str] = None,
+    tipo_combustivel: Optional[str] = None,
+):
+    query = db.query(
+        func.to_char(models.Coleta.data_coleta, 'YYYY-MM-DD').label("date"),
+        func.avg(models.Coleta.preco_venda).label("price")
+    ).group_by("date").order_by("date")
+    
+    if cidade:
+        query = query.filter(models.Coleta.cidade == cidade)
+    if tipo_combustivel:
+        query = query.filter(models.Coleta.tipo_combustivel == tipo_combustivel)
+        
+    return query.all()
