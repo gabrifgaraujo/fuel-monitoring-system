@@ -1,8 +1,8 @@
-# ⛽ Fuel Monitoring System
+# Fuel Monitoring System
 
-This project implements a Full Stack application for the Ministry of Transportation to monitor fuel collection data, including key performance indicators (KPIs) and data filtering capabilities.
+This project implements a Full Stack application for the Ministério de Transportes to monitor fuel collection data, including key performance indicators (KPIs) and data filtering capabilities.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 | Component | Technology | Description |
 | :--- | :--- | :--- |
@@ -12,7 +12,7 @@ This project implements a Full Stack application for the Ministry of Transportat
 | **Orchestration** | Docker & Docker Compose | Containerization for isolated and reproducible environments. |
 | **Security/Compliance** | CPF Masking (LGPD) | Sensitive data (CPF) is masked before being sent to the frontend. |
 
-## ✨ Features
+## Features
 
 *   **Data Ingestion:** Endpoint to receive fuel collection records.
 *   **Data Query:** Filterable table view of all collected data.
@@ -21,7 +21,7 @@ This project implements a Full Stack application for the Ministry of Transportat
     *   Line Chart: Price evolution over time.
 *   **Advanced UX:** Debounced filters, request cancellation (`AbortController`), and delayed loading indicators.
 
-## 🛠️ Setup and Installation
+## Setup and Installation
 
 ### Prerequisites
 
@@ -31,7 +31,7 @@ This project implements a Full Stack application for the Ministry of Transportat
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/gabrifgaraujo/fuel-monitoring-system.git
     cd fuel-monitoring-system
     ```
 
